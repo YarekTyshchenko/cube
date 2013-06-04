@@ -1,0 +1,7 @@
+{
+  "name": "cube-statsd-backend",
+  "version": "0.0.1",
+  "dependencies": {
+    "cube": "0.2.x"
+  }
+}
