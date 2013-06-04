@@ -4,10 +4,27 @@ cube-statsd-backend
 Major credit to dynmeth's Mongo backend (http://github.com/dynmeth/mongo-statsd-backend).
 
 
-A backend StatsD library to be used with a Cube (http://github.com/square/cube) Collector. Backend library uses the Cube emitter to send data received when statsd data flushes. Use Cube Evaluator queries (http://github.com/square/cube/wiki/Queries) to pull and use data where needed. Combine with Cubism (http://github.com/square/cubism) for more entertainment.
+A backend StatsD library to be used with a Cube (http://github.com/square/cube) Collector. Backend library uses the Cube emitter to send data received when statsd data flushes. Use Cube Evaluator queries (http://github.com/square/cube/wiki/Queries) to pull and use data where needed. Combine with Cubism (http://github.com/square/cubism) for more entertainment. You have to have an operational Cube server, which requires NodeJS and MongoDB to run. Follow Square's installation documents as they're pretty straight forward. Additionally, test your connectivity with the emitter library which would look similar to this
+
+```javascript
+
+var emitter = require('cube').emitter("ws://127.0.0.1:1080");
+
+emitter.send{
+    type: "type_name",
+    time: Date.now(),
+    data:{
+        some:"json",
+        data: "you",
+        will: "query"
+        from: 150
+    }
+});
+```
 
 Installation
 ============
+
 From your statsd directory
 
 ```
@@ -31,7 +48,7 @@ Add the backend and a cube emitter web socket DSN to your statsd config file, yo
 Usage
 ======
 
-Each collection will be prefixed by the optional typePrefix and with the type of statsd data that was sent (gagues, counters, etc). Make requests to the evaluator api to pull data and remmeber that statsd will send the flush interval as a part of the stat type so in the example below sums the count data from a user_login counter that was incremented and flushed every second.
+Each collection will be prefixed by the optional typePrefix and with the type of statsd data that was sent (gagues, counters, etc). Make requests to the evaluator api to pull data. StatsD will send along the interval data but the evaluator will take care of a lot of that for you so we just put all data under a single collection instead of appending like 
 
 ```
 http://localhost:1081/1.0/metric?expression=sum(prefix_string_counters_user_login(count))&step=6e4&limit=100
