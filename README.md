@@ -83,5 +83,6 @@ Versions
 
 
 **0.0.1**: fixing for gauges and adding more documentation
+
 **0.0.0**: all types are operational, but counters are all that I've played with. I'm ignoring bad lines and packets received for now until I know what to do with them.
 
