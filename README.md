@@ -17,12 +17,14 @@ From your statsd directory
 Add the backend and a cube emitter web socket DSN to your statsd config file, you probably additionally want to set deleteIdleStats to true so you don't fill cube with a bunch of empty data as the evaluator will take care of filling in the spaces for you already. Since Cube's evaluators will take care of creating metrics it really only stores the stat type and the raw data and throws away any of the flush interval sent across by statsd
 
 ```json
-deleteIdleStats: true,
-cube: {
-    dsn: "ws://127.0.0.1:1080",
-    typePrefix: "prefix_string" //this will be prepended to the mongo collection so care on naming only [A-Za-z_]
-},
-backends: ['./node_modules/cube-statsd-backend/lib/index.js']
+{
+    "deleteIdleStats": true,
+    "cube": {
+        "dsn": "ws://127.0.0.1:1080",
+        "typePrefix": "prefix_string" //this will be prepended to the mongo collection so care on naming only [A-Za-z_]
+    },
+    "backends": ['./node_modules/cube-statsd-backend/lib/index.js']
+}
 ```
 
 
